@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Service — API Tester</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>User Service</h1>
+    <p class="subtitle">
+      API Tester · backend running on
+      <code style="color: #38bdf8">localhost:3000</code>
+    </p>
+
+    <div class="token-bar">
+      <label>JWT Token:</label>
+      <span class="token-value" id="tokenDisplay">— не установлен —</span>
+      <button class="token-clear" onclick="clearToken()">Сбросить</button>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-header">
+          <span class="method post">POST</span>
+          <span class="card-title">Регистрация</span>
+          <span class="card-path">/auth/register</span>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <label>ФИО</label><input id="reg-name" value="Иван Иванов" />
+          </div>
+          <div class="field">
+            <label>Дата рождения</label
+            ><input id="reg-birth" type="date" value="1990-01-15" />
+          </div>
+          <div class="field">
+            <label>Email</label
+            ><input id="reg-email" value="ivan@example.com" />
+          </div>
+          <div class="field">
+            <label>Пароль</label
+            ><input id="reg-pass" type="password" value="secret123" />
+          </div>
+          <div class="field">
+            <label>Роль</label>
+            <select id="reg-role">
+              <option value="user">user</option>
+              <option value="admin">admin</option>
+            </select>
+          </div>
+          <button class="send" onclick="register()">Отправить</button>
+          <pre class="response" id="reg-res"></pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="method post">POST</span>
+          <span class="card-title">Авторизация</span>
+          <span class="card-path">/auth/login</span>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <label>Email</label
+            ><input id="login-email" value="ivan@example.com" />
+          </div>
+          <div class="field">
+            <label>Пароль</label
+            ><input id="login-pass" type="password" value="secret123" />
+          </div>
+          <button class="send" onclick="login()">
+            Войти и сохранить токен
+          </button>
+          <pre class="response" id="login-res"></pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="method get">GET</span>
+          <span class="card-title">Получить пользователя</span>
+          <span class="card-path">/users/:id</span>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <label>ID пользователя</label
+            ><input id="get-id" placeholder="cuid..." />
+          </div>
+          <button class="send" onclick="getUser()">Получить</button>
+          <pre class="response" id="get-res"></pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="method get">GET</span>
+          <span class="card-title">Список пользователей</span>
+          <span class="card-path">/users</span>
+        </div>
+        <div class="card-body">
+          <p class="hint">
+            Только для admin. Использует сохранённый JWT токен.
+          </p>
+          <button class="send" onclick="getUsers()">Получить всех</button>
+          <pre class="response" id="list-res"></pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="method patch">PATCH</span>
+          <span class="card-title">Заблокировать пользователя</span>
+          <span class="card-path">/users/:id/block</span>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <label>ID пользователя</label
+            ><input id="block-id" placeholder="cuid..." />
+          </div>
+          <button class="send" onclick="blockUser()">Заблокировать</button>
+          <pre class="response" id="block-res"></pre>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
